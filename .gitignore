@@ -1,0 +1,10 @@
+advimages/
+torch_nets/
+*.json
+*.csv
+*png
+*.tex
+
+__pycache__/
+*.py[cod]
+*$py.class

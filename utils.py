@@ -1,12 +1,13 @@
-import torch
+import csv
 import os
-import time
 
-ROOT_PATH = '' # the basic path of results and datasets
-BASE_ADV_PATH = os.path.join(ROOT_PATH, 'advimages')
+ROOT_PATH = ""  # the basic path of results and datasets
+BASE_ADV_PATH = os.path.join(ROOT_PATH, "advimages")
+
 
 class AverageMeter:
     """Computes and stores the average and current value"""
+
     def __init__(self):
         self.reset()
 
@@ -22,6 +23,7 @@ class AverageMeter:
         self.count += n
         self.avg = self.sum / self.count
 
+
 def accuracy(output, target, topk=(1,)):
     """Computes the accuracy over the k top predictions for the specified values of k"""
     maxk = max(topk)
@@ -29,13 +31,13 @@ def accuracy(output, target, topk=(1,)):
     _, pred = output.topk(maxk, 1, True, True)
     pred = pred.t()
     correct = pred.eq(target.reshape(1, -1).expand_as(pred))
-    return [correct[:k].reshape(-1).float().sum(0) * 100. / batch_size for k in topk]
+    return [correct[:k].reshape(-1).float().sum(0) * 100.0 / batch_size for k in topk]
 
-class Logger(object):
 
+class Logger:
     def __init__(self, path, header):
-        self.log_file = open(path, 'w')
-        self.logger = csv.writer(self.log_file, delimiter='\t')
+        self.log_file = open(path, "w")
+        self.logger = csv.writer(self.log_file, delimiter="\t")
 
         self.logger.writerow(header)
         self.header = header
